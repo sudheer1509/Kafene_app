@@ -51,7 +51,48 @@ $(document).ready(function () {
       }
     }
   });
-
+  var NotExpiredCheckBox = document.getElementById("nonExpiredCheckBox");
+  NotExpiredCheckBox.addEventListener("change", function (e) {
+    e.preventDefault();
+    let tablebody = document.getElementById("table-body");
+    let tr = tablebody.getElementsByTagName("tr");
+    for (let i = 0; i < tr.length; i++) {
+      let td = tr[i].getElementsByTagName("td")[3];
+      if (td) {
+        let textValue = myParser(td.textContent || td.innerHTML);
+        if (new Date(textValue).getTime() > new Date().getTime()) {
+          if (this.checked === true) {
+            tr[i].style.display = "";
+            $("#count").html(parseInt($("#count").html()) + 1);
+          } else {
+            tr[i].style.display = "none";
+            $("#count").html(parseInt($("#count").html()) - 1);
+          }
+        }
+      }
+    }
+  });
+  var highStockCheckBox = document.getElementById("highStockCheckBox");
+  highStockCheckBox.addEventListener("change", function (e) {
+    e.preventDefault();
+    let tablebody = document.getElementById("table-body");
+    let tr = tablebody.getElementsByTagName("tr");
+    for (let i = 0; i < tr.length; i++) {
+      let td = tr[i].getElementsByTagName("td")[5];
+      if (td) {
+        let textValue = td.textContent || td.innerHTML;
+        if (parseInt(textValue) > 100) {
+          if (this.checked === true) {
+            tr[i].style.display = "";
+            $("#count").html(parseInt($("#count").html()) + 1);
+          } else {
+            tr[i].style.display = "none";
+            $("#count").html(parseInt($("#count").html()) - 1);
+          }
+        }
+      }
+    }
+  });
   var lowStockCheckBox = document.getElementById("lowStockCheckBox");
   lowStockCheckBox.addEventListener("change", function (e) {
     e.preventDefault();
@@ -61,7 +102,7 @@ $(document).ready(function () {
       let td = tr[i].getElementsByTagName("td")[5];
       if (td) {
         let textValue = td.textContent || td.innerHTML;
-        if (textValue < 100) {
+        if (parseInt(textValue) < 100) {
           if (this.checked === true) {
             tr[i].style.display = "";
             $("#count").html(parseInt($("#count").html()) + 1);
