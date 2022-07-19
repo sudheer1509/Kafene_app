@@ -25,7 +25,7 @@ $(document).ready(function () {
       );
     } else {
       alert(
-        `Please Enter Valid Credentials ${credentials.username} ${credentials.password}`
+        `Please Enter Valid Credentials`
       );
     }
   };
